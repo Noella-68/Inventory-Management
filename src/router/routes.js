@@ -21,9 +21,9 @@ const routes = [
         component: () => import("pages/ProductsPage.vue"),
       },
       {
-        path: "report",
-        name: "report",
-        component: () => import("pages/ReportPage.vue"),
+        path: "clients",
+        name: "clients",
+        component: () => import("pages/ClientsPage.vue"),
       },
       {
         path: "suppliers",

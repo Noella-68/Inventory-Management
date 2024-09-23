@@ -13,7 +13,7 @@
         <q-btn
           @click="showAddProductsDialogue = true"
           color="primary"
-          label="Add Products"
+          label="Add Product"
         />
       </template>
 
@@ -69,21 +69,22 @@ const showAddProductsDialogue = ref(false);
 const columns = [
   {
     name: "Product ID",
-    align: "center",
+    align: "left",
     label: "Product ID",
     field: "prodID",
     sortable: false,
   },
-  { name: "Product", label: "Product", field: "name", sortable: true },
-  { name: "Arrival Date", label: "Arrival Date", field: "arrivalDate" },
-  { name: "Category", label: "Category", field: "category" },
-  { name: "Original Price", label: "Original Price", field: "originalPrice" },
-  { name: "Quantity", label: "Quantity", field: "qty" },
-  { name: "Left quantity", label: "Left quantity", field: "leftQty" },
-  { name: "Expiry Date", label: "Expiry Date", field: "expiryDate" },
+  { name: "Product", label: "Product", align: "left", field: "name", sortable: true },
+  { name: "Arrival Date", label: "Arrival Date",  align: "left", field: "arrivalDate" },
+  { name: "Category", label: "Category", align: "left", field: "category" },
+  { name: "Original Price", label: "Original Price", align: "left", field: "originalPrice" },
+  { name: "Quantity", label: "Quantity", align: "left", field: "qty" },
+  { name: "Left quantity", label: "Left quantity",  align: "left", field: "leftQty" },
+  { name: "Expiry Date", label: "Expiry Date", align: "left", field: "expiryDate" },
   {
     name: "Supplier",
     label: "Supplier",
+    align: "left",
     field: "supplier",
     sortable: true,
     sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),

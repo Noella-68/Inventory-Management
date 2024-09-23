@@ -155,7 +155,7 @@
             with Inventory Plus
             <br />
             <br />
-            Link: <a>href="https://http://localhost:3000/api/"</a>
+            Link: <a>href="https://http://localhost:4000/api/"</a>
           </h5>
         </div>
       </div>
@@ -214,7 +214,7 @@
           class="col-md-12 col-md-12 col-xs-12 col-sm-12 q-mb-xl flex flex-center"
         >
 
-          <video 
+          <video
             style="height: 500px"
             class="q-ml-sm"
             alt="application demo"

@@ -87,7 +87,7 @@
       <q-btn flat label="Cancel" v-close-popup />
       <q-btn
         flat
-        label="Add Products"
+        label="Add Product"
         :loading="submitting"
         :disabled="submitting"
         color="primary"

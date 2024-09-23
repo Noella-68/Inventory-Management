@@ -1,7 +1,7 @@
 import { boot } from "quasar/wrappers";
 import axios from "axios";
 
-const baseURL = "http://localhost:3000/api/";
+const baseURL = "https://inventapi.onrender.com/api/";
 
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;
@@ -13,6 +13,7 @@ const api = axios.create({
   baseURL: baseURL,
   headers: {
     Accept: "application/json",
+    "Content-Type": "application/json"
   },
 });
 

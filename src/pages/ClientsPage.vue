@@ -1,17 +1,19 @@
 <template>
   <div class="q-pa-md">
     <q-table
-      title="Users"
-      :rows="usersData"
+      flat
+      bordered
+      title="Clients"
+      :rows="clientsData"
       :columns="columns"
       row-key="name"
-      :loading="loadingUsers"
+      :loading="loadingClients"
     >
       <template v-slot:top-right>
         <q-btn
-          @click="showAddUserDialogue = true"
+          @click="showAddClientsDialogue = true"
           color="primary"
-          label="Add User"
+          label="Add Client"
         />
       </template>
 
@@ -34,7 +36,7 @@
                 color="accent"
                 icon="edit"
                 title="Edit"
-                @click="btnShowEditUsersDialog(props.row)"
+                @click="btnShowEditClientsDialog(props.row)"
               />
               <q-btn
                 class="q-pa-xs"
@@ -43,7 +45,7 @@
                 color="red-10"
                 icon="delete"
                 title="Delete"
-                @click="btnDeleteUsers(props.row)"
+                @click="btnDeleteClients(props.row)"
               />
             </q-td>
           </template>
@@ -51,31 +53,36 @@
       </template>
     </q-table>
 
-    <q-dialog v-model="showAddUserDialogue">
-      <AddUserDialogue @success="showAddUserDialogue =false" ></AddUserDialogue>
+    <q-dialog v-model="showAddClientsDialogue">
+      <AddClientsDialogue @success="showAddClientsDialogue =false"> </AddClientsDialogue>
     </q-dialog>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
-import AddUserDialogue from "components/Users/AddUserDialogue.vue";
-import userMethods from "components/Users/userMethods";
+import AddClientsDialogue from "components/Clients/AddClientsDialogue.vue";
+import clientsMethods from "components/Clients/clientsMethods";
 
-const showAddUserDialogue = ref(false);
+const showAddClientsDialogue = ref(false);
 
 const columns = [
-  { name: "id", align: "left", label: "ID", field: "_id", sortable: false },
-  { name: "name", align: "left", label: "Name", field: "name", sortable: true },
   {
-    name: "username",
+    name: "Name",
     align: "left",
-    label: "Username",
-    field: "username",
-    sortable: true,
+    label: "Name",
+    field: "name",
+    sortable: false,
   },
-  { name: "Contacts", align: "left", label: "Contacts", field: "Contacts" },
-  { name: "actions", align: "left", label: "Actions", field: "actions" },
+  { name: "Contacts", label: "Contacts", align: "left", field: "contact" },
+  {
+    name: "Address",
+    label: "Address",
+    align: "left",
+    field: "address",
+    sortable: true,
+    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
+  },
 ];
 
 const skipColumns = (columnName) => {
@@ -83,11 +90,12 @@ const skipColumns = (columnName) => {
   return Columns.includes(columnName);
 };
 
-const { usersData, loadingUsers, actionFetchUsersData } = userMethods();
+const { clientsData, loadingClients, actionFetchClientsData } =
+  clientsMethods();
 
 onMounted(() => {
-  if (!usersData.value.length) {
-    actionFetchUsersData();
+  if (!clientsData.value.length) {
+    actionFetchClientsData();
   }
 });
 </script>

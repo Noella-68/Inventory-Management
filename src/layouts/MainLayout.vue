@@ -76,17 +76,18 @@ const linksList = [
     link: "suppliers",
   },
   {
+    title: "Clients",
+    // caption: '@quasarframework',
+    icon: "analytics",
+    link: "clients",
+  },
+  {
     title: "Users",
     // caption: 'forum.quasar.dev',
     icon: "person",
     link: "users",
   },
-  {
-    title: "Report",
-    // caption: '@quasarframework',
-    icon: "analytics",
-    link: "report",
-  },
+
   {
     title: "Help",
     // caption: '@QuasarFramework',

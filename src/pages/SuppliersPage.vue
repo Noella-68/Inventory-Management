@@ -1,142 +1,102 @@
 <template>
   <div class="q-pa-md">
-    <q-table title="Suppliers" :rows="rows" :columns="columns" row-key="name" />
+    <q-table
+      flat
+      bordered
+      title="Suppliers"
+      :rows="suppliersData"
+      :columns="columns"
+      row-key="name"
+      :loading="loadingSuppliers"
+    >
+      <template v-slot:top-right>
+        <q-btn
+          @click="showAddSupplierDialogue = true"
+          color="primary"
+          label="Add Supplier"
+        />
+      </template>
+
+      <template v-slot:body="props">
+        <q-tr :props="props">
+          <template v-for="col in props.cols">
+            <q-td
+              class="text-left"
+              v-if="!skipColumns(col.name)"
+              :key="col.name"
+            >
+              {{ props.row[col.field] }}
+            </q-td>
+
+            <q-td v-if="col.name === 'actions'" :key="col.name" width="40px">
+              <q-btn
+                class="q-pa-xs q-mr-sm"
+                size="sm"
+                outline
+                color="accent"
+                icon="edit"
+                title="Edit"
+                @click="btnShowEditSuppliersDialog(props.row)"
+              />
+              <q-btn
+                class="q-pa-xs"
+                size="sm"
+                outline
+                color="red-10"
+                icon="delete"
+                title="Delete"
+                @click="btnDeleteSuppliers(props.row)"
+              />
+            </q-td>
+          </template>
+        </q-tr>
+      </template>
+    </q-table>
+
+    <q-dialog v-model="showAddSupplierDialogue">
+      <AddSupplierDialogue @success="showAddSupplierDialogue =false"> </AddSupplierDialogue>
+    </q-dialog>
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
+import AddSupplierDialogue from "components/Suppliers/AddSupplierDialogue.vue";
+import suppliersMethods from "components/Suppliers/suppliersMethods";
+
+
+const showAddSupplierDialogue = ref(false);
+
 const columns = [
   {
-    name: "Supl ID",
+    name: "name",
     align: "left",
-    label: "Supl ID",
-    field: "Supl ID",
-    sortable: true,
+    label: "Name",
+    field: "name",
+    sortable: false,
   },
-  { name: "Name", label: "Name", field: "Name", sortable: true },
-  { name: "Gender", label: "Gender", field: "Gender" },
-  { name: "Email", label: "Email", field: "Email" },
-  { name: "Location", label: "Location", field: "Location" },
+  { name: "contact", label: "Contacts", align: "left", field: "contact" },
   {
-    name: "Age",
-    label: "Age",
-    field: "Age",
+    name: "address",
+    label: "Address",
+    align: "left",
+    field: "address",
     sortable: true,
     sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
   },
-  { name: "Edit", label: "Edit", field: "Edit" },
-  { name: "Delete", label: "Delete", field: "Delete" },
 ];
 
-const rows = [
-  {
-    name: "Frozen Yogurt",
-    calories: 159,
-    fat: 6.0,
-    carbs: 24,
-    protein: 4.0,
-    sodium: 87,
-    calcium: "14%",
-    iron: "1%",
-  },
-  {
-    name: "Ice cream sandwich",
-    calories: 237,
-    fat: 9.0,
-    carbs: 37,
-    protein: 4.3,
-    sodium: 129,
-    calcium: "8%",
-    iron: "1%",
-  },
-  {
-    name: "Eclair",
-    calories: 262,
-    fat: 16.0,
-    carbs: 23,
-    protein: 6.0,
-    sodium: 337,
-    calcium: "6%",
-    iron: "7%",
-  },
-  {
-    name: "Cupcake",
-    calories: 305,
-    fat: 3.7,
-    carbs: 67,
-    protein: 4.3,
-    sodium: 413,
-    calcium: "3%",
-    iron: "8%",
-  },
-  {
-    name: "Gingerbread",
-    calories: 356,
-    fat: 16.0,
-    carbs: 49,
-    protein: 3.9,
-    sodium: 327,
-    calcium: "7%",
-    iron: "16%",
-  },
-  {
-    name: "Jelly bean",
-    calories: 375,
-    fat: 0.0,
-    carbs: 94,
-    protein: 0.0,
-    sodium: 50,
-    calcium: "0%",
-    iron: "0%",
-  },
-  {
-    name: "Lollipop",
-    calories: 392,
-    fat: 0.2,
-    carbs: 98,
-    protein: 0,
-    sodium: 38,
-    calcium: "0%",
-    iron: "2%",
-  },
-  {
-    name: "Honeycomb",
-    calories: 408,
-    fat: 3.2,
-    carbs: 87,
-    protein: 6.5,
-    sodium: 562,
-    calcium: "0%",
-    iron: "45%",
-  },
-  {
-    name: "Donut",
-    calories: 452,
-    fat: 25.0,
-    carbs: 51,
-    protein: 4.9,
-    sodium: 326,
-    calcium: "2%",
-    iron: "22%",
-  },
-  {
-    name: "KitKat",
-    calories: 518,
-    fat: 26.0,
-    carbs: 65,
-    protein: 7,
-    sodium: 54,
-    calcium: "12%",
-    iron: "6%",
-  },
-];
-
-export default {
-  setup() {
-    return {
-      columns,
-      rows,
-    };
-  },
+const skipColumns = (columnName) => {
+  const Columns = ["actions"];
+  return Columns.includes(columnName);
 };
+
+const { suppliersData, loadingSuppliers, actionFetchSuppliersData } =
+  suppliersMethods();
+
+onMounted(() => {
+  if (!suppliersData.value.length) {
+    actionFetchSuppliersData();
+  }
+});
 </script>
