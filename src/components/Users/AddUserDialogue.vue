@@ -54,7 +54,7 @@
 
 <script setup>
 
-import userMethods from "components/users/userMethods";
+import userMethods from "components/Users/userMethods";
 
 const emits = defineEmits(['success'])
 const emitSuccess = () => emits('success')   // event emitting from child to parent
