@@ -155,7 +155,7 @@
             with Inventory Plus
             <br />
             <br />
-            Link: <a>href="https://http://localhost:4000/api/"</a>
+            Link: <a href="https://inventapi.netlify.app/dashboard" style="color: white">App Link</a>
           </h5>
         </div>
       </div>
@@ -188,7 +188,7 @@
           class="col-md-12 col-md-12 col-xs-12 col-sm-12 q-mb-xl flex flex-center"
         >
           <img
-            src="/Images/Image 2024-09-11 at 12.54.42 PM.jpeg"
+            src="/Images/Image 2024-09-24 at 3.31.32 AM.jpg"
             style="height: 500px"
             class="q-ml-sm"
             alt=""
